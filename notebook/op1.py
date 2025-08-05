@@ -29,7 +29,7 @@ b_df.printSchema
 from pyspark.sql.functions import broadcast
 join_tb=t_df.join(broadcast(b_df), on="BRANCH_CODE",how="inner")
 join_tb.display()
-
+#join_tb = t_df.join(broadcast(b_df), "BRANCH_CODE")
 # COMMAND ----------
 
 t_df.select("BRANCH_CODE").distinct().count()
