@@ -21,8 +21,8 @@ b_df.printSchema
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC 🔹 Q1.1: Join transactions with branch_lookup using BRANCH_CODE using broadcast().   
-# MAGIC 🔹 Q1.2: Filter only CREDIT transactions after join and count them per REGION.
+# MAGIC  Q1.1: Join transactions with branch_lookup using BRANCH_CODE using broadcast().   
+# MAGIC Q1.2: Filter only CREDIT transactions after join and count them per REGION.
 
 # COMMAND ----------
 
