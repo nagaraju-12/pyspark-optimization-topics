@@ -190,10 +190,10 @@ print("⏱ After unpersist (recompute):", time.time() - start)
 
 # MAGIC %md
 # MAGIC 4. Coalesce vs Repartition   
-# MAGIC 📌 What it does:   
+# MAGIC  What it does:   
 # MAGIC Controls number of partitions for better performance or output file size.    
 # MAGIC
-# MAGIC ✅ Q4.1: Group and total per customer  
+# MAGIC  Q4.1: Group and total per customer  
 # MAGIC
 
 # COMMAND ----------
@@ -215,7 +215,7 @@ from pyspark.sql.functions import sum
 
 agg_df = t_df.groupBy("CUSTOMER_ID").agg(sum("AMOUNT").alias("TOTAL_SPENT"))
 
-# ✅ Now this will work
+#  Now this will work
 agg_df.coalesce(2).write.parquet("/FileStore/tables/customer_spend")
 
 
@@ -232,24 +232,24 @@ print(agg_df.storageLevel)  # Optional: if you're caching
 # MAGIC
 # MAGIC ---
 # MAGIC
-# MAGIC ### 📁 **Directory: `/FileStore/tables/customer_spend`**
+# MAGIC ### Directory: '/FileStore/tables/customer_spend'
 # MAGIC
 # MAGIC | #   | File Name                        | Description                                     |
 # MAGIC | --- | -------------------------------- | ----------------------------------------------- |
-# MAGIC | 1️⃣ | `_SUCCESS`                       | ✅ **Indicates the job completed successfully.** |
-# MAGIC | 2️⃣ | `_committed_5259078066361055282` | Internal file for tracking write commit.        |
-# MAGIC | 3️⃣ | `_started_5259078066361055282`   | Internal file for tracking job start.           |
-# MAGIC | 4️⃣ | `part-00000-...snappy.parquet`   | 💾 **Actual output data (only 1 part file).**   |
+# MAGIC | 1️ | `_SUCCESS`                       | Indicates the job completed successfully. |
+# MAGIC | 2️ | `_committed_5259078066361055282` | Internal file for tracking write commit.        |
+# MAGIC | 3️ | `_started_5259078066361055282`   | Internal file for tracking job start.           |
+# MAGIC | 4️ | `part-00000-...snappy.parquet`   | Actual output data (only 1 part file).   |
 # MAGIC
 # MAGIC ---
 # MAGIC
-# MAGIC ### ✅ Summary:
+# MAGIC ###  Summary:
 # MAGIC
 # MAGIC * **Total files**: **4**
 # MAGIC * **Actual data files**: **1 Parquet file**
 # MAGIC * **Supporting internal files**: **3 (\_SUCCESS, \_started, \_committed)**
 # MAGIC
-# MAGIC 🟡 Even though you used `.coalesce(2)`, only **one part file** (`part-00000`) was written. That means your dataset was small enough that Spark didn't need two files.
+# MAGIC  Even though you used `.coalesce(2)`, only **one part file** (`part-00000`) was written. That means your dataset was small enough that Spark didn't need two files.
 # MAGIC
 # MAGIC ---
 # MAGIC
@@ -271,10 +271,10 @@ dbutils.fs.ls("/FileStore/tables/customer_spend")
 
 # MAGIC %md
 # MAGIC 5. Delta Lake + Time Travel  
-# MAGIC 📌 What it does:   
+# MAGIC  What it does:   
 # MAGIC Delta lets you version tables and restore old versions.   
 # MAGIC
-# MAGIC ✅ Q5.1: Save EMI data to Delta  
+# MAGIC Q5.1: Save EMI data to Delta  
 
 # COMMAND ----------
 
@@ -317,10 +317,10 @@ print("Read + Show time:", end - start, "seconds")
 
 # MAGIC %md
 # MAGIC 6. Adaptive Query Execution (AQE)  
-# MAGIC 📌 What it does:     
+# MAGIC  What it does:     
 # MAGIC Automatically improves joins, skewed data, partition sizes at runtime.  
 # MAGIC
-# MAGIC ✅ Q6.1: Enable AQE
+# MAGIC  Q6.1: Enable AQE
 
 # COMMAND ----------
 
@@ -367,10 +367,10 @@ df_high.unpersist()
 
 # MAGIC %md
 # MAGIC 8. Partitioning   
-# MAGIC 📌 What it does:   
+# MAGIC  What it does:   
 # MAGIC Splits saved data into folders based on column values → fast filter.  
 # MAGIC
-# MAGIC ✅ Q8.1: Save partitioned by CITY and TXN_TYPE  
+# MAGIC  Q8.1: Save partitioned by CITY and TXN_TYPE  
 
 # COMMAND ----------
 
@@ -389,10 +389,10 @@ spark.read.parquet("/FileStore/tables/partitioned_txns").filter("CITY='Delhi' AN
 
 # MAGIC %md
 # MAGIC 9. Bucketing 
-# MAGIC 📌 What it does: 
+# MAGIC  What it does: 
 # MAGIC Buckets (splits) data by hash on a column, helps in join optimization. 
 # MAGIC
-# MAGIC ✅ Q9.1: Save as bucketed table
+# MAGIC  Q9.1: Save as bucketed table
 # MAGIC
 # MAGIC
 
@@ -406,7 +406,7 @@ t_df.write.bucketBy(8, "CUSTOMER_ID").sortBy("CUSTOMER_ID") \
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ✅ Q9.2: Join with another bucketed table
+# MAGIC Q9.2: Join with another bucketed table
 
 # COMMAND ----------
 
